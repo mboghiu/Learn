@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <functional>
 
 #include "heap.hpp"
 
@@ -22,6 +21,5 @@ class PriorityQueue
         std::string toString() const;
 
     private:
-        std::function<bool(int,int)> m_priority_function;
         Heap m_heap;
 };

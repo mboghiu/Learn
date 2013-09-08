@@ -40,7 +40,7 @@ options str2enum(const std::string& command)
         return options::DELETE_ROOT;
     if (command == "update_key")
         return options::UPDATE_KEY;
-    if (command == "insert")
+    if (command == "add")
         return options::INSERT;
     if (command == "q")
         return options::Q;

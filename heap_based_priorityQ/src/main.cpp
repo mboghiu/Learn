@@ -74,12 +74,14 @@ int main()
 
             case options::UPDATE_KEY:
             {
+                // TODO update key
                 std::cout << " UPDATE_KEY.." << std::endl;
                 break;
             }
 
             case options::INSERT:
             {
+                    // TODO clean this up
                 if (arguments.size() == 0)
                     std::cout << "Sorry, you need to provide an element to insert." << std::endl;
                 else if (arguments.size() == 1)
@@ -92,6 +94,7 @@ int main()
                 else if (arguments.size() == 2 and g_queues.find(arguments.at(0)) != g_queues.end())
                         g_queues.at(arguments.at(0)).insert(arguments.at(1));
                 else if (g_queues.find(arguments.at(0)) != g_queues.end())
+                    // TODO insert multiple arguments
                         g_queues.at(arguments.at(0)).insert(arguments);
                     
                 break;

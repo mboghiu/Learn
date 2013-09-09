@@ -26,9 +26,7 @@ void Heap::upheap(size_t element)
 {
     m_heap.push_back(element);
 
-    int indexOfNewNode = static_cast<int>(m_heap.size()) - 1;
-
-    Reheap(indexOfNewNode);
+    Reheap(static_cast<int>(m_heap.size()) - 1);
 }
 
 // TODO move to helpers

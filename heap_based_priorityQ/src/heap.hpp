@@ -10,9 +10,10 @@ class Heap
         Heap(const std::vector<size_t>& elements);
 
         size_t view_root() const;
-        void delete_root();
 
+        void downheap();
         void upheap(size_t element);
+
         void merge(const Heap& other_heap);
 
         const std::vector<size_t>& get() const;
@@ -29,4 +30,6 @@ class Heap
         int GetParentIndex(int indexOfNode) const;
         int GetLeftChildIndex(int indexOfNode) const;
         int GetRightChildIndex(int indexOfNode) const;
+
+        void Reheap(int indexOfNode);
 };

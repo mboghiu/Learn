@@ -17,7 +17,7 @@ size_t Heap::view_root() const
     return m_heap.at(0);
 }
 
-void Heap::delete_root()
+void Heap::downheap()
 {
     // TODO ALG delete root
 }
@@ -28,18 +28,20 @@ void Heap::upheap(size_t element)
 
     int indexOfNewNode = static_cast<int>(m_heap.size()) - 1;
 
-    while (GetParentIndex(indexOfNewNode) >= 0)
-    {
-        if (SatisfiesHeapProperty(GetParentIndex(indexOfNewNode)))
-        {
-            break;
-        }
-        else
-        {
-            std::swap(m_heap.at(indexOfNewNode), m_heap.at(GetParentIndex(indexOfNewNode)));
-            indexOfNewNode = GetParentIndex(indexOfNewNode);
-        }
-    }
+    Reheap(indexOfNewNode);
+}
+
+// TODO move to helpers
+void Heap::Reheap(int indexOfNode)
+{
+    if (GetParentIndex(indexOfNode) < 0)
+        return;
+
+    if (SatisfiesHeapProperty(GetParentIndex(indexOfNode)))
+        return;
+
+    std::swap(m_heap.at(indexOfNode), m_heap.at(GetParentIndex(indexOfNode)));
+    Reheap(GetParentIndex(indexOfNode));
 }
 
 void Heap::merge(const Heap& /*other_heap*/)

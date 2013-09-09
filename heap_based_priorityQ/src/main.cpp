@@ -81,21 +81,26 @@ int main()
 
             case options::INSERT:
             {
-                    // TODO clean this up
                 if (arguments.size() == 0)
+                {
                     std::cout << "Sorry, you need to provide an element to insert." << std::endl;
+                }
+                else if (arguments.size() == 1 and g_queues.size() == 1)
+                {
+                    g_queues.at(1).insert(arguments.at(0));
+                }
                 else if (arguments.size() == 1)
                 {
-                    if (g_queues.size() == 1)
-                        g_queues.at(1).insert(arguments.at(0));
-                    else
-                        std::cout << "You want to insert an element in queue " << arguments.at(0) << " but did not specify which." << std::endl;
+                    std::cout << "Insert an element in queue " << arguments.at(0) << " but which?" << std::endl;
                 }
                 else if (arguments.size() == 2 and g_queues.find(arguments.at(0)) != g_queues.end())
-                        g_queues.at(arguments.at(0)).insert(arguments.at(1));
+                {
+                    g_queues.at(arguments.at(0)).insert(arguments.at(1));
+                }
                 else if (g_queues.find(arguments.at(0)) != g_queues.end())
-                    // TODO insert multiple arguments
-                        g_queues.at(arguments.at(0)).insert(arguments);
+                {
+                    g_queues.at(arguments.at(0)).insert(arguments);
+                }
                     
                 break;
             }

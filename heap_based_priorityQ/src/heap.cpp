@@ -34,9 +34,13 @@ void Heap::insert(size_t element)
     upheap(static_cast<int>(m_heap.size()) - 1);
 }
 
-void Heap::merge(const Heap& /*other_heap*/)
+void Heap::merge(const Heap& other_heap)
 {
-    // TODO ALG merge
+    m_heap.reserve(m_heap.size() + other_heap.get().size());
+
+    m_heap.insert(m_heap.end(), other_heap.get().begin(), other_heap.get().end());
+
+    heapify(m_heap, m_heap.size());
 }
 
 const std::vector<size_t>& Heap::get() const

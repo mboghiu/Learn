@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <functional>
 
 class Heap
 {
@@ -21,10 +20,11 @@ class Heap
         std::string toString() const;
 
     private:
-        // TODO std::function<bool(int)> m_satisfiesHeapProperty;
         std::vector<size_t> m_heap;
 
         bool SatisfiesHeapProperty(int indexOfNode) const;
+        bool HasLeftChild(int indexOfNode) const;
+        bool HasRightChild(int indexOfNode) const;
 
         int GetParentIndex(int indexOfNode) const;
         int GetLeftChildIndex(int indexOfNode) const;

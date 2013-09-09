@@ -40,7 +40,7 @@ int main()
             case options::HEAPIFY:
             {
                 if (arguments.size() == 0)
-                    std::cout << "Sorry you need to give a list of numbers to heapify." << std::endl;
+                    std::cout << "Sorry, you need to give a list of numbers to heapify." << std::endl;
                 else
                     g_queues.insert(std::make_pair(++g_current_index, PriorityQueue(arguments)));
                 break;
@@ -97,17 +97,11 @@ int main()
                 break;
             }
 
+            /* exits */
             case options::Q:
-            {
                 exit(0);
-            }
-
             case options::UNKNOWN:
-            {
-                std::cout << "Unknown instruction \033[31m" << command
-                          << "\033[0m, please try again:" << std::endl;
                 break;
-            }
         }
     }
 

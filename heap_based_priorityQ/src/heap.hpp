@@ -11,8 +11,9 @@ class Heap
 
         size_t view_root() const;
 
-        void downheap();
-        void upheap(size_t element);
+        void delete_root();
+
+        void insert(size_t element);
 
         void merge(const Heap& other_heap);
 
@@ -23,7 +24,11 @@ class Heap
     private:
         std::vector<size_t> m_heap;
 
-        bool SatisfiesHeapProperty(int indexOfNode) const;
+        void upheap(int node);
+        void downheap(int node);
+
+        bool SatisfiesHeapProperty(int node) const;
+
         bool HasLeftChild(int indexOfNode) const;
         bool HasRightChild(int indexOfNode) const;
 
@@ -31,5 +36,5 @@ class Heap
         int GetLeftChildIndex(int indexOfNode) const;
         int GetRightChildIndex(int indexOfNode) const;
 
-        void Reheap(int indexOfNode);
+        int GetIndexOfMinValueChild(int node) const;
 };

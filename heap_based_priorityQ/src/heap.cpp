@@ -17,29 +17,27 @@ size_t Heap::view_root() const
     return m_heap.at(0);
 }
 
-void Heap::downheap()
+void Heap::delete_root()
 {
-    // TODO ALG delete root
+    std::cout << "\033[37mDeleting root in the heap\033[0m ... " << std::endl;
+
+    std::swap(m_heap.at(0), m_heap.at(m_heap.size() - 1));
+
+    m_heap.pop_back();
+
+    std::cout << "Un-downheaped: " << toString() << std::endl;
+
+    if (m_heap.size() >= 1)
+        downheap(0);
+
+    std::cout << "Downheaped:    " << toString() << std::endl;
 }
 
-void Heap::upheap(size_t element)
+void Heap::insert(size_t element)
 {
     m_heap.push_back(element);
 
-    Reheap(static_cast<int>(m_heap.size()) - 1);
-}
-
-// TODO move to helpers
-void Heap::Reheap(int indexOfNode)
-{
-    if (GetParentIndex(indexOfNode) < 0)
-        return;
-
-    if (SatisfiesHeapProperty(GetParentIndex(indexOfNode)))
-        return;
-
-    std::swap(m_heap.at(indexOfNode), m_heap.at(GetParentIndex(indexOfNode)));
-    Reheap(GetParentIndex(indexOfNode));
+    upheap(static_cast<int>(m_heap.size()) - 1);
 }
 
 void Heap::merge(const Heap& /*other_heap*/)
@@ -68,12 +66,39 @@ std::string Heap::toString() const
 
 ////////////// Helpers /////////////////
 
-bool Heap::SatisfiesHeapProperty(int indexOfNode) const
+void Heap::upheap(int node)
 {
-    if (HasLeftChild(indexOfNode) and m_heap.at(indexOfNode) > m_heap.at(GetLeftChildIndex(indexOfNode)))
+    if (GetParentIndex(node) < 0)
+        return;
+
+    if (SatisfiesHeapProperty(GetParentIndex(node)))
+        return;
+
+    std::swap(m_heap.at(node), m_heap.at(GetParentIndex(node)));
+
+    upheap(GetParentIndex(node));
+}
+
+void Heap::downheap(int node)
+{
+    if (SatisfiesHeapProperty(node))
+        return;
+
+    int indexOfMinValueChild = GetIndexOfMinValueChild(node);
+
+    std::swap(m_heap.at(node), m_heap.at(indexOfMinValueChild));
+
+    downheap(indexOfMinValueChild);
+}
+
+bool Heap::SatisfiesHeapProperty(int node) const
+{
+    /* If parent is <= then both children, if they exits. */
+
+    if (HasLeftChild(node) and m_heap.at(node) > m_heap.at(GetLeftChildIndex(node)))
         return false;
 
-    if (HasRightChild(indexOfNode) and m_heap.at(indexOfNode) > m_heap.at(GetRightChildIndex(indexOfNode)))
+    if (HasRightChild(node) and m_heap.at(node) > m_heap.at(GetRightChildIndex(node)))
         return false;
 
     return true;
@@ -105,4 +130,18 @@ int Heap::GetLeftChildIndex(int indexOfNode) const
 int Heap::GetRightChildIndex(int indexOfNode) const
 {
     return indexOfNode * 2 + 2;
+}
+
+int Heap::GetIndexOfMinValueChild(int node) const
+{
+    if (!HasLeftChild(node))
+        return GetRightChildIndex(node);
+
+    if (!HasRightChild(node))
+        return GetLeftChildIndex(node);
+
+    if (m_heap.at(GetLeftChildIndex(node)) <= m_heap.at(GetRightChildIndex(node)))
+        return GetLeftChildIndex(node);
+    else
+        return GetRightChildIndex(node);
 }

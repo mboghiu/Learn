@@ -13,12 +13,12 @@ size_t PriorityQueue::peek() const
 
 void PriorityQueue::pop()
 {
-    m_heap.downheap();
+    m_heap.delete_root();
 }
 
 void PriorityQueue::insert(const size_t& element)
 {
-    m_heap.upheap(element);
+    m_heap.insert(element);
 }
 
 void PriorityQueue::insert(const std::vector<size_t>& elements)

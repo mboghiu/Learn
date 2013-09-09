@@ -36,8 +36,8 @@ options str2enum(const std::string& command)
         return options::HEAPIFY;
     if (command == "peek")
         return options::PEEK;
-    if (command == "delete_root")
-        return options::DELETE_ROOT;
+    if (command == "pop")
+        return options::POP;
     if (command == "update_key")
         return options::UPDATE_KEY;
     if (command == "add")

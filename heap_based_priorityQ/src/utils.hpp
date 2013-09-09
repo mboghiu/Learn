@@ -6,7 +6,7 @@
 
 #include "priority_queue.hpp"
 
-enum class options { UNKNOWN, MK, LS, HEAPIFY, PEEK, DELETE_ROOT, UPDATE_KEY, INSERT, Q};
+enum class options { UNKNOWN, MK, LS, HEAPIFY, PEEK, POP, UPDATE_KEY, INSERT, Q};
 
 namespace utils
 {

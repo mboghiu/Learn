@@ -26,6 +26,7 @@ class Heap
 
         void upheap(int node);
         void downheap(int node);
+        void heapify(std::vector<size_t>& array, size_t array_size);
 
         bool SatisfiesHeapProperty(int node) const;
 

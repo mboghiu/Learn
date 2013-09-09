@@ -6,7 +6,7 @@
 Heap::Heap(const std::vector<size_t>& elements) :
     m_heap(elements)
 {
-    // TODO ALG heapify function
+    heapify(m_heap, m_heap.size());
 }
 
 size_t Heap::view_root() const
@@ -19,18 +19,12 @@ size_t Heap::view_root() const
 
 void Heap::delete_root()
 {
-    std::cout << "\033[37mDeleting root in the heap\033[0m ... " << std::endl;
-
     std::swap(m_heap.at(0), m_heap.at(m_heap.size() - 1));
 
     m_heap.pop_back();
 
-    std::cout << "Un-downheaped: " << toString() << std::endl;
-
     if (m_heap.size() >= 1)
         downheap(0);
-
-    std::cout << "Downheaped:    " << toString() << std::endl;
 }
 
 void Heap::insert(size_t element)
@@ -43,7 +37,6 @@ void Heap::insert(size_t element)
 void Heap::merge(const Heap& /*other_heap*/)
 {
     // TODO ALG merge
-    std::cout << "\033[1;31mMERGE NOT YET IMPLEMENTED\033[0m" << std::endl;
 }
 
 const std::vector<size_t>& Heap::get() const
@@ -64,7 +57,7 @@ std::string Heap::toString() const
     return std::move(iss.str());
 }
 
-////////////// Helpers /////////////////
+////////////// Algorithms - actual work happens here /////////////////
 
 void Heap::upheap(int node)
 {
@@ -90,6 +83,20 @@ void Heap::downheap(int node)
 
     downheap(indexOfMinValueChild);
 }
+
+void Heap::heapify(std::vector<size_t>& array, size_t array_size)
+{
+    if (array_size == 0)
+        return;
+
+    for (size_t i = array_size / 2; i < array_size; i++)
+        downheap(static_cast<int>(i)); 
+
+    heapify(array, array_size / 2);
+}
+
+
+////////////// Helpers /////////////////
 
 bool Heap::SatisfiesHeapProperty(int node) const
 {

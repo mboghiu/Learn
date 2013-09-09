@@ -13,7 +13,7 @@ size_t PriorityQueue::peek() const
 
 void PriorityQueue::pop()
 {
-    m_heap.delete_root();
+    m_heap.downheap();
 }
 
 void PriorityQueue::insert(const size_t& element)

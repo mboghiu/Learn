@@ -49,23 +49,23 @@ int main()
             case options::PEEK:
             {
                 if (arguments.size() == 0)
-                    for ( auto q : g_queues )
+                    for ( auto& q : g_queues )
                         std::cout << "\033[36m" << q.first << "\033[0m: " << q.second.peek() << std::endl;
                 else
-                    for ( auto q : arguments )
+                    for ( auto& q : arguments )
                         if (g_queues.find(arguments.at(q)) != g_queues.end())
                             std::cout << "\033[36m" << q << "\033[0m: " << g_queues.at(arguments.at(q)).peek() << std::endl;
                     
                 break;
             }
 
-            case options::DELETE_ROOT:
+            case options::POP:
             {
                 if (arguments.size() == 0)
-                    for ( auto q : g_queues )
+                    for ( auto& q : g_queues )
                         q.second.pop();
                 else
-                    for ( auto q : arguments )
+                    for ( auto& q : arguments )
                         if (g_queues.find(arguments.at(q)) != g_queues.end())
                             g_queues.at(arguments.at(q)).pop();
                     

@@ -45,10 +45,15 @@ void HashTable<Key, Value>::add(const Key& key, const Value& value)
 {
     size_t index = m_hasher(key);
 
-    if (m_values.at(index) != m_santinel)
+    if (m_values.at(index) == m_santinel)
+    {
+        m_values.at(index) = (value + " ");
+    }
+    else
+    {
         std::cout << "\033[1;31m CRASH >> collision at index: " << index << "\033[0m" << std::endl;
-
-    m_values.at(index) = value;
+        m_values.at(index) += (value + " ");
+    }
 }
 
 template<typename Key, typename Value>

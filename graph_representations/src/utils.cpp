@@ -14,6 +14,10 @@ options str2enum(const std::string& command)
         return options::ADJ;
     if (command == "lsn")
         return options::LSN;
+    if (command == "df")
+        return options::DF;
+    if (command == "bf")
+        return options::BF;
 
     if (command == "q")
         return options::Q;

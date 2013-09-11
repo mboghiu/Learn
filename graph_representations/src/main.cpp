@@ -4,9 +4,10 @@
 #include <vector>
 
 #include "utils.hpp"
+#include "df.hpp"
 #include "MatrixGraph.hpp"
 
-MatrixGraph<std::string> g_matrixRep(4);
+MatrixGraph<std::string> g_matrixRep(8);
 
 int main()
 {
@@ -52,6 +53,17 @@ int main()
                 for (auto neighbour : g_matrixRep.GetNeighbours(x))
                     std::cout << neighbour << " ";
                 std::cout << std::endl;
+                break;
+            }
+
+            case options::DF:
+            {
+                traversal::df(g_matrixRep);
+                break;
+            }
+
+            case options::BF:
+            {
                 break;
             }
 

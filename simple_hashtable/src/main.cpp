@@ -17,6 +17,7 @@ HashTable<const std::string, std::string> g_table(g_size, [] (const std::string&
     std::cout << "\033[37mhash(" << key << ") = " << (index % g_size) << "\033[0m" << std::endl;
 
     return static_cast<int>(index % g_size);
+
 });
 
 int main()
@@ -33,35 +34,19 @@ int main()
 
         switch (utils::str2enum(command))
         {
-            case options::LS:
-            {
-                g_table.print();
-                break;
-            }
+            case options::LS: { g_table.print(); break; }
 
-            case options::ADD:
-            {
-                g_table.add(key, value); 
-                break;
-            }
+            case options::ADD: { g_table.add(key, value); break; }
 
-            case options::RM:
-            {
-            }
+            case options::RM: { g_table.remove(key); break; }
 
-            case options::GET:
-            {
-            }
+            case options::GET: { g_table.get(key); break; }
 
-            case options::SET:
-            {
-            }
+            case options::SET: { g_table.set(key, value); break; }
 
-            /* exits */
-            case options::Q:
-                exit(0);
-            case options::UNKNOWN:
-                break;
+            case options::Q: { exit(0); break; }
+            
+            case options::UNKNOWN: { break; }
         }
     }
 

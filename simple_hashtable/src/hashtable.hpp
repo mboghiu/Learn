@@ -121,9 +121,20 @@ void HashTable<Key, Value>::remove(const Key& key)
 }
 
 template<typename Key, typename Value>
-void HashTable<Key, Value>::set(const Key& /*key*/, const Value& /*newValue*/)
+void HashTable<Key, Value>::set(const Key& key, const Value& newValue)
 {
-    // TODO set
+    size_t index = m_hasher(key);
+
+    for (Element<Key, Value>* it = m_values.at(index); it != 0; it = it->m_next)
+    {
+        if (it->m_key == key)
+        {
+            it->m_value = newValue;
+            return;
+        }
+    }
+
+    std::cout << "Sorry, could not find element with key: " << key << std::endl;
 }
 
 template<typename Key, typename Value>

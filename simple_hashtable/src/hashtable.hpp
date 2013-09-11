@@ -85,6 +85,55 @@ void HashTable<Key, Value>::add(const Key& key, const Value& value)
 }
 
 template<typename Key, typename Value>
+static void DeleteNode(Element<Key, Value>*& ptrNode)
+{
+    Element<Key, Value>* nodeToBeDeleted = ptrNode;
+
+    ptrNode = ptrNode->m_next;
+
+    delete nodeToBeDeleted;
+}
+
+template<typename Key, typename Value>
+void HashTable<Key, Value>::remove(const Key& key)
+{
+    size_t index = m_hasher(key);
+
+    if (m_values.at(index) == 0)
+    {
+        return;
+    }
+
+    if (m_values.at(index)->m_key == key)
+    {
+        DeleteNode(m_values.at(index));
+        return;
+    }
+
+    for (Element<Key, Value>* it = m_values.at(index); it != 0 and it->m_next != 0; it = it->m_next)
+    {
+        if (it->m_next->m_key == key)
+        {
+            DeleteNode(it->m_next);
+            return;
+        }
+    }
+}
+
+template<typename Key, typename Value>
+void HashTable<Key, Value>::set(const Key& /*key*/, const Value& /*newValue*/)
+{
+    // TODO set
+}
+
+template<typename Key, typename Value>
+const Value& HashTable<Key, Value>::get(const Key& /*key*/) const
+{
+    // TODO get
+    return m_values.at(0)->m_value;
+}
+
+template<typename Key, typename Value>
 void HashTable<Key, Value>::print() const
 {
     if (m_values.size() == 0)
@@ -102,7 +151,9 @@ void HashTable<Key, Value>::print() const
 
         for (Element<Key, Value>* it = m_values.at(i); it != 0; it = it->m_next)
         {
-            std::cout << it->m_value << " ---> ";
+            std::cout << it->m_value << "(key:" << it->m_key << " next:" << it->m_next << ") ---> ";
         }
+
+        std::cout << "//" << std::endl;
     }
 }

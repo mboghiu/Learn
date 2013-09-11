@@ -54,15 +54,15 @@ MatrixGraph<T>::MatrixGraph(size_t numberOfNodes) :
 }
 
 template<typename T>
-void MatrixGraph<T>::AddEdge(size_t /*start*/, size_t /*end*/)
+void MatrixGraph<T>::AddEdge(size_t start, size_t end)
 {
-    // TODO add edge
+    m_graph.at(start * m_nodeCount + end) = true;
 }
 
 template<typename T>
-void MatrixGraph<T>::RemoveEdge(size_t /*start*/, size_t /*end*/)
+void MatrixGraph<T>::RemoveEdge(size_t start, size_t end)
 {
-    // TODO remove edge
+    m_graph.at(start * m_nodeCount + end) = false;
 }
 
 template<typename T>
@@ -79,17 +79,19 @@ const T& MatrixGraph<T>::GetNodeValue(size_t node) const
 }
 
 template<typename T>
-bool MatrixGraph<T>::AreAdjacent(size_t /*nodeX*/, size_t /*nodeY*/) const
+bool MatrixGraph<T>::AreAdjacent(size_t nodeX, size_t nodeY) const
 {
-    // TODO are adjacend
-    return true;
+    return m_graph.at(nodeX * m_nodeCount + nodeY);
 }
 
 template<typename T>
-const std::vector<size_t> MatrixGraph<T>::GetNeighbours(size_t /*node*/) const
+const std::vector<size_t> MatrixGraph<T>::GetNeighbours(size_t node) const
 {
     std::vector<size_t> neighbours;
-    // TODO get neighbours
+
+    for (size_t index = 0; index < m_nodeCount; index++)
+        if (m_graph.at(node * m_nodeCount + index))
+            neighbours.push_back(index);
 
     return (std::move(neighbours));
 }
@@ -97,22 +99,28 @@ const std::vector<size_t> MatrixGraph<T>::GetNeighbours(size_t /*node*/) const
 template<typename T>
 void MatrixGraph<T>::Print() const
 {
-    /////// List column header /////////
+    /* List column header */
+
     std::cout << "* ";
+
     for (size_t index = 0; index < m_nodeCount; index++)
+    {
         std::cout << "\033[37m" << index << " \033[0m";
+    }
+
     std::cout << std::endl;
+
+    /* List rows */
 
     for (size_t index = 0; index < m_graph.size(); index++)
     {
-        //////// List row header ////////
+        /* List row header */
         if ( index % m_nodeCount == 0 )
-            std::cout << "\033[37m" << (index % m_nodeCount) << " \033[0m";
+            std::cout << "\033[37m" << (index / m_nodeCount) << " \033[0m";
 
-        //////// Actual Value ////////
         std::cout << (m_graph.at(index) ? "1 " : "0 ");
 
-        /////// New line at end of row ///////
+        /* New line at end of row */
         if (((index + 1) % m_nodeCount) == 0)
             std::cout << std::endl;
     }

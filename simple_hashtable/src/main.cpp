@@ -14,8 +14,6 @@ HashTable<const std::string, std::string> g_table(g_size, [] (const std::string&
 
     size_t index = m_hash(key);
 
-    std::cout << "\033[37mhash(" << key << ") = " << (index % g_size) << "\033[0m" << std::endl;
-
     return static_cast<int>(index % g_size);
 
 });
@@ -40,7 +38,7 @@ int main()
 
             case options::RM: { g_table.remove(key); break; }
 
-            case options::GET: { g_table.get(key); break; }
+            case options::GET: { std::cout << "\033[37m " << key << "\033[0m = " << g_table.get(key) << std::endl ; break; }
 
             case options::SET: { g_table.set(key, value); break; }
 

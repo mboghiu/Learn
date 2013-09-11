@@ -138,10 +138,17 @@ void HashTable<Key, Value>::set(const Key& key, const Value& newValue)
 }
 
 template<typename Key, typename Value>
-const Value& HashTable<Key, Value>::get(const Key& /*key*/) const
+const Value& HashTable<Key, Value>::get(const Key& key) const
 {
-    // TODO get
-    return m_values.at(0)->m_value;
+    size_t index = m_hasher(key);
+
+    for (Element<Key, Value>* it = m_values.at(index); it != 0; it = it->m_next)
+    {
+        if (it->m_key == key)
+            return it->m_value;
+    }
+
+    throw ("Sorry, could not find element with key: " + key);
 }
 
 template<typename Key, typename Value>
@@ -162,9 +169,12 @@ void HashTable<Key, Value>::print() const
 
         for (Element<Key, Value>* it = m_values.at(i); it != 0; it = it->m_next)
         {
-            std::cout << it->m_value << "(key:" << it->m_key << " next:" << it->m_next << ") ---> ";
+            std::cout << "\033[37m" << it->m_value << "\033[0m "
+                      << "(key:\033[1m" << it->m_key << "\033[0m"
+                      << " next:\033[1m" << it->m_next << "\033[0m"
+                      << ") ---> ";
         }
 
-        std::cout << "//" << std::endl;
+        std::cout << "\033[31m//\033[0m" << std::endl;
     }
 }

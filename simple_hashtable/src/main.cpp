@@ -38,7 +38,19 @@ int main()
 
             case options::RM: { g_table.remove(key); break; }
 
-            case options::GET: { std::cout << "\033[37m " << key << "\033[0m = " << g_table.get(key) << std::endl ; break; }
+            case options::GET:
+            {
+                try
+                {
+                    std::cout << "\033[37m " << key << "\033[0m = " << g_table.get(key) << std::endl;
+                }
+                catch (const std::string& exception)
+                {
+                    std::cout << "\033[31m" << exception << "\033[0m" << std::endl;
+                }
+
+                break;
+            }
 
             case options::SET: { g_table.set(key, value); break; }
 

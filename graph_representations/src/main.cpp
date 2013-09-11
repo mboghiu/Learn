@@ -4,6 +4,9 @@
 #include <vector>
 
 #include "utils.hpp"
+#include "MatrixGraph.hpp"
+
+MatrixGraph<std::string> g_matrixRep(8);
 
 int main()
 {
@@ -19,8 +22,11 @@ int main()
 
         switch (utils::str2enum(command))
         {
-            case options::LS: { ; break; }
-
+            case options::LS:
+            {
+                g_matrixRep.Print();
+                break;
+            }
 
             case options::Q: { exit(0); break; }
             

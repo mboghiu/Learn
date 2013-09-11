@@ -50,10 +50,17 @@ class HashTable
         std::vector<Element<Key, Value>* > m_values;
 };
 
+
+
+
+/////////// HashTable implementation ///////////////////
+
 template<typename Key, typename Value>
 HashTable<Key, Value>::HashTable(size_t size, const std::function<int(const Key&)>& m_hashingFunction) :
     m_hasher(m_hashingFunction)
 {
+    // TODO dynamically-sized hash table
+
     m_values.resize(size);
 
     for ( auto& value : m_values )

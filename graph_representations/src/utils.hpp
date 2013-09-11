@@ -5,7 +5,7 @@
 #include <vector>
 #include <sstream>
 
-enum class options {LS, Q, UNKNOWN};
+enum class options {LS, ADD, RM, ADJ, LSN, Q, UNKNOWN};
 
 namespace utils
 {

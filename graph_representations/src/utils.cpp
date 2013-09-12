@@ -8,7 +8,7 @@ options str2enum(const std::string& command)
         return options::LS;
     if (command == "add")
         return options::ADD;
-    if (command == "addb")
+    if (command == "+")
         return options::ADDB;
     if (command == "rm")
         return options::RM;

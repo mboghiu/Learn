@@ -6,6 +6,7 @@
 
 #include "utils.hpp"
 #include "df.hpp"
+#include "bf.hpp"
 #include "matrix_graph.hpp"
 
 

@@ -32,6 +32,8 @@ class MatrixGraph
         bool AreAdjacent(size_t nodeX, size_t nodeY) const;
         const std::vector<size_t> GetNeighbours(size_t node) const;
 
+        size_t GetSize() const;
+
         void Print() const;
 
     private:
@@ -94,6 +96,12 @@ const std::vector<size_t> MatrixGraph<T>::GetNeighbours(size_t node) const
             neighbours.push_back(index);
 
     return (std::move(neighbours));
+}
+
+template<typename T>
+size_t MatrixGraph<T>::GetSize() const
+{
+    return m_nodeCount;
 }
 
 template<typename T>

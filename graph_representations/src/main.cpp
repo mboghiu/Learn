@@ -36,6 +36,13 @@ int main()
                 break;
             }
 
+            case options::ADDB:
+            {
+                g_matrixRep.AddEdge(x, y);
+                g_matrixRep.AddEdge(y, x);
+                break;
+            }
+
             case options::RM:
             {
                 g_matrixRep.RemoveEdge(x, y);

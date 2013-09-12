@@ -3,34 +3,64 @@
 
 #include <iostream>
 #include <set>
+#include <stack>
 
 namespace traversal
 {
     template<typename Graph>
     void df(const Graph& graph);
-
-    template<typename Graph>
-    void bf(const Graph& graph);
-
 }
 
+//////////// DF helpers (inside this compilation unit) ///////////////
 
-
-//////////// implementation ///////////////
+static bool IsVisited(const std::set<size_t>& visited, size_t node)
+{
+    return (visited.find(node) != visited.end());
+}
 
 template<typename Graph>
 static void _df(const Graph& graph, size_t start, std::set<size_t>& visited)
 {
+    visited.insert(start);       // mark as visited
+    std::cout << start << " | "; // apply f()
+
     for (auto neighbour : graph.GetNeighbours(start))
-    {
-        if (visited.find(neighbour) == visited.end())
-        {
-            visited.insert(neighbour);
+        if (!IsVisited(visited, neighbour))
             _df(graph, neighbour, visited);
-            std::cout << neighbour << " | ";
-        }
+}
+
+template<typename Graph>
+static void _df_with_a_stack(const Graph& graph, size_t start)
+{
+    std::set<size_t> visited;
+    std::stack<size_t> waiting;
+
+    waiting.push(start);
+
+    while (!waiting.empty())
+    {
+        // Get top of stack
+        size_t current = waiting.top();
+        waiting.pop();
+
+        // Mark as visited
+        visited.insert(current);
+
+        // Do something with the node (if we haven't already)
+            std::cout << current << " | ";
+
+        // Add all its unvisited neighbours to the stack
+        const std::vector<size_t>& neighbours = graph.GetNeighbours(current);
+
+        for (std::vector<size_t>::const_iterator it = neighbours.end() - 1; it >= neighbours.begin(); it--)
+            if (!IsVisited(visited, *it))
+            {
+                waiting.push(*it);
+            }
     }
 }
+
+////////// Public ///////////////
 
 template<typename Graph>
 void traversal::df(const Graph& graph)
@@ -38,26 +68,15 @@ void traversal::df(const Graph& graph)
     size_t start;
     std::cout << "Depth first traversal starting at node: ";
     std::cin >> start;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::set<size_t> visited;
+
     _df(graph, start, visited);    
-    std::cout << std::endl;
-}
+    std::cout << std::endl << "\033[36m";
 
-template<typename Graph>
-static void _bf(const Graph& /*graph*/, size_t /*start*/)
-{
-    // TODO recursive routine for BF
-}
-
-template<typename Graph>
-void traversal::bf(const Graph& graph)
-{
-    size_t start;
-    std::cout << "Breadth first traversal starting at node: ";
-    std::cin >> start;
-
-    _bf(graph, start);    
+    _df_with_a_stack(graph, start);
+    std::cout << "\033[0m" << std::endl;
 }
 
 #endif // _DF_ALG_

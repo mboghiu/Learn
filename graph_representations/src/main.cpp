@@ -2,15 +2,22 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "utils.hpp"
 #include "df.hpp"
 #include "matrix_graph.hpp"
 
-MatrixGraph<std::string> g_matrixRep(8);
 
 int main()
 {
+    size_t size;
+    std::cout << "size of graph: ";
+    std::cin >> size;
+    std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+
+    MatrixGraph<std::string> g_matrixRep(size);
+
     while (true)
     {
         ///////////// Read user input ////////////
@@ -71,6 +78,7 @@ int main()
 
             case options::BF:
             {
+                traversal::bf(g_matrixRep);
                 break;
             }
 

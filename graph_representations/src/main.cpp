@@ -5,7 +5,7 @@
 
 #include "utils.hpp"
 #include "df.hpp"
-#include "MatrixGraph.hpp"
+#include "matrix_graph.hpp"
 
 MatrixGraph<std::string> g_matrixRep(8);
 

@@ -13,8 +13,18 @@ class Node
         Node() = delete;
         Node(size_t key, const T& value, int level);
 
+        /*
+            Modifiers 
+        */
+
         void AppendLeftChild(Node* const child);
         void AppendRightChild(Node* const child);
+
+        void IncrementHeight();
+
+        /*
+            Getters & Checkers
+        */
 
         bool HasLeftChild() const;
         bool HasRightChild() const;
@@ -23,8 +33,9 @@ class Node
         Node<T>* GetRightChild() const;
 
         size_t GetKey() const;
-
         int GetLevel() const;
+        int GetHeight() const;
+        int GetLoadFactor() const;
 
         std::string ToString() const;
 
@@ -34,6 +45,7 @@ class Node
         T m_value;
 
         int m_level;
+        int m_height;
 
         Node* m_left;
         Node* m_right;
@@ -47,6 +59,7 @@ Node<T>::Node(size_t key, const T& value, int level) :
     m_key(key),
     m_value(value),
     m_level(level),
+    m_height(0),
     m_left(0),
     m_right(0)
 { }
@@ -73,6 +86,12 @@ void Node<T>::AppendRightChild(Node* const child)
     }
 
     m_right = child;
+}
+
+template<typename T>
+void Node<T>::IncrementHeight()
+{
+    m_height++;
 }
 
 template<typename T>
@@ -109,6 +128,27 @@ template<typename T>
 int Node<T>::GetLevel() const
 {
     return m_level;
+}
+
+template<typename T>
+int Node<T>::GetHeight() const
+{
+    return m_height;
+}
+
+template<typename T>
+int Node<T>::GetLoadFactor() const
+{
+    if (m_left == nullptr and m_right == nullptr)
+        return 0;
+
+    if (m_left == nullptr)
+        return (0 - m_right->GetHeight());
+
+    if (m_right == nullptr)
+        return (m_left->GetHeight());
+
+    return (m_left->GetHeight() - m_right->GetHeight());
 }
 
 template<typename T>

@@ -72,16 +72,32 @@ void AdjacencyListGraph<T>::AddEdge(size_t start, size_t end)
     insertPlace ->m_next = edge;
 }
 
+void DeleteEdge(Edge*& ptrNode)
+{
+    Edge* toBeDeleted = ptrNode;
+
+    ptrNode = toBeDeleted->m_next;
+
+    delete toBeDeleted;
+}
+
 template<typename T>
 void AdjacencyListGraph<T>::RemoveEdge(size_t start, size_t end)
 {
     if (m_graph.at(start) == 0)
         return;
 
+    if (m_graph.at(start)->m_to == end)
+    {
+        DeleteEdge(m_graph.at(start));
+        return;
+    }
+
     for (Edge* edge = m_graph.at(start); edge != 0 and edge->m_next != 0; edge = edge->m_next)
         if (edge->m_next->m_to == end)
         {
-            // TODO            
+            DeleteEdge(edge->m_next);
+            return;
         }
 }
 

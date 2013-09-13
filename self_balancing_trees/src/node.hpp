@@ -20,7 +20,7 @@ class Node
         void AppendLeftChild(Node* const child);
         void AppendRightChild(Node* const child);
 
-        void IncrementHeight();
+        void RecomputeHeight();
 
         /*
             Getters & Checkers
@@ -89,9 +89,24 @@ void Node<T>::AppendRightChild(Node* const child)
 }
 
 template<typename T>
-void Node<T>::IncrementHeight()
+void Node<T>::RecomputeHeight()
 {
-    m_height++;
+    if (m_left == nullptr and m_right == nullptr)
+        return;
+
+    if (m_left == nullptr)
+    {
+        m_height = m_right->GetHeight() + 1;
+        return;
+    }
+
+    if (m_right == nullptr)
+    {
+        m_height = m_left->GetHeight() + 1;
+        return;
+    }
+
+    m_height = std::max(m_left->GetHeight(), m_right->GetHeight()) + 1;
 }
 
 template<typename T>
@@ -156,7 +171,7 @@ std::string Node<T>::ToString() const
 {
     std::ostringstream iss;
 
-    iss << "(" << m_key << "," << m_value << "," << m_level << ")";
+    iss << "(k:\033[1;37m" << m_key << "\033[0m,v:" << m_value << ",L:" << m_level << ",H:" << m_height << ")";
 
     return (std::move(iss.str()));
 }

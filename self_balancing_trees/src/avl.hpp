@@ -71,7 +71,7 @@ void AVL<T>::_insert(size_t key, const T& value, Node<T>* tree)
         return;
     }
 
-    tree->IncrementHeight();
+    tree->RecomputeHeight();
 
     _maybe_rebalance(tree);
 }
@@ -80,7 +80,7 @@ template<typename T>
 void AVL<T>::_maybe_rebalance(Node<T>* tree)
 {
     // TODO _maybe_rebalance
-    std::cout << tree;
+    std::cout << "maybe rebalance " << tree->ToString() << std::endl;
 }
 
 template<typename T>

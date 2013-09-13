@@ -95,11 +95,12 @@ bool AdjacencyListGraph<T>::AreAdjacent(size_t nodeX, size_t nodeY) const
 }
 
 template<typename T>
-const std::vector<size_t> AdjacencyListGraph<T>::GetNeighbours(size_t /*node*/) const
+const std::vector<size_t> AdjacencyListGraph<T>::GetNeighbours(size_t node) const
 {
     std::vector<size_t> neighbours;
 
-    // TODO adj get neighbours
+    for (Edge* edge = m_graph.at(node); edge != 0; edge = edge->m_next)
+        neighbours.push_back(edge->m_to);
 
     return (std::move(neighbours));
 }

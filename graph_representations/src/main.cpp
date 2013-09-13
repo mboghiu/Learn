@@ -5,9 +5,12 @@
 #include <limits>
 
 #include "utils.hpp"
+
 #include "df.hpp"
 #include "bf.hpp"
+
 #include "matrix_graph.hpp"
+#include "adjacency_list_graph.hpp"
 
 
 int main()
@@ -18,6 +21,7 @@ int main()
     std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
 
     MatrixGraph<std::string> g_matrixRep(size);
+    AdjacencyListGraph<std::string> g_adjacencyListRep(size);
 
     while (true)
     {
@@ -35,12 +39,14 @@ int main()
             case options::LS:
             {
                 g_matrixRep.Print();
+                g_adjacencyListRep.Print();
                 break;
             }
 
             case options::ADD:
             {
                 g_matrixRep.AddEdge(x, y);
+                g_adjacencyListRep.AddEdge(x, y);
                 break;
             }
 

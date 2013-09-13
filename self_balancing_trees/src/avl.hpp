@@ -26,6 +26,7 @@ class AVL
         void rotate_left(Node<T>* subtreeRoot);
 
         void _insert(size_t key, const T& value, Node<T>* tree);
+        void _maybe_rebalance(Node<T>* tree);
 };
 
 
@@ -36,7 +37,6 @@ class AVL
 template<typename T>
 void AVL<T>::insert(size_t key, const T& value)
 {
-    // TODO insert
     if (m_root == nullptr)
     {
         m_root = new Node<T>(key, value, 0);
@@ -50,6 +50,7 @@ template<typename T>
 void AVL<T>::_insert(size_t key, const T& value, Node<T>* tree)
 {
     /* simple insert into a binary tree */
+
     if (key < tree->GetKey())
     {
         if (tree->HasLeftChild())
@@ -67,7 +68,19 @@ void AVL<T>::_insert(size_t key, const T& value, Node<T>* tree)
     else
     {
         std::cout << "Sorry, we don't allow duplicate keys." << std::endl;
+        return;
     }
+
+    tree->IncrementHeight();
+
+    _maybe_rebalance(tree);
+}
+
+template<typename T>
+void AVL<T>::_maybe_rebalance(Node<T>* tree)
+{
+    // TODO _maybe_rebalance
+    std::cout << tree;
 }
 
 template<typename T>

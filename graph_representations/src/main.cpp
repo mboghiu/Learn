@@ -54,24 +54,36 @@ int main()
             {
                 g_matrixRep.AddEdge(x, y);
                 g_matrixRep.AddEdge(y, x);
+                
+                g_adjacencyListRep.AddEdge(x, y);
+                g_adjacencyListRep.AddEdge(y, x);
+                
                 break;
             }
 
             case options::RM:
             {
                 g_matrixRep.RemoveEdge(x, y);
+                g_adjacencyListRep.RemoveEdge(x, y);
                 break;
             }
 
             case options::ADJ:
             {
-                std::cout << (g_matrixRep.AreAdjacent(x, y) ? "yes" : "no") << std::endl;
+                std::cout << "MatrixRep:        " << (g_matrixRep.AreAdjacent(x, y) ? "yes" : "no") << std::endl;
+                std::cout << "AdjacencyListRep: " << (g_adjacencyListRep.AreAdjacent(x, y) ? "yes" : "no") << std::endl;
                 break;
             }
 
             case options::LSN:
             {
+                std::cout << "Matrix:  ";
                 for (auto neighbour : g_matrixRep.GetNeighbours(x))
+                    std::cout << neighbour << " ";
+                std::cout << std::endl;
+
+                std::cout << "AdjList: ";
+                for (auto neighbour : g_adjacencyListRep.GetNeighbours(x))
                     std::cout << neighbour << " ";
                 std::cout << std::endl;
                 break;
@@ -79,13 +91,22 @@ int main()
 
             case options::DF:
             {
+                std::cout << "Matrix:  ";
                 traversal::df(g_matrixRep);
+
+                std::cout << "AdjList: ";
+                traversal::df(g_adjacencyListRep);
+
                 break;
             }
 
             case options::BF:
             {
+                std::cout << "Matrix:  ";
                 traversal::bf(g_matrixRep);
+
+                std::cout << "AdjList: ";
+                traversal::bf(g_adjacencyListRep);
                 break;
             }
 

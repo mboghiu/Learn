@@ -59,7 +59,7 @@ Node<T>::Node(size_t key, const T& value, int level) :
     m_key(key),
     m_value(value),
     m_level(level),
-    m_height(0),
+    m_height(1),
     m_left(0),
     m_right(0)
 { }
@@ -171,7 +171,11 @@ std::string Node<T>::ToString() const
 {
     std::ostringstream iss;
 
-    iss << "(k:\033[1;37m" << m_key << "\033[0m,v:" << m_value << ",L:" << m_level << ",H:" << m_height << ")";
+    iss << "(k:\033[1;37m" << m_key
+        << "\033[0m,v:" << m_value
+        << ",L:" << m_level
+        << ",H:" << m_height
+        << ",LF:" << GetLoadFactor() << ")";
 
     return (std::move(iss.str()));
 }

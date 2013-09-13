@@ -43,20 +43,19 @@ static void _df_with_a_stack(const Graph& graph, size_t start)
         size_t current = waiting.top();
         waiting.pop();
 
+        // Do something with the node (if we haven't already)
+        if (!IsVisited(visited, current))
+            std::cout << current << " | ";
+
         // Mark as visited
         visited.insert(current);
-
-        // Do something with the node (if we haven't already)
-            std::cout << current << " | ";
 
         // Add all its unvisited neighbours to the stack
         const std::vector<size_t>& neighbours = graph.GetNeighbours(current);
 
         for (std::vector<size_t>::const_iterator it = neighbours.end() - 1; it >= neighbours.begin(); it--)
             if (!IsVisited(visited, *it))
-            {
                 waiting.push(*it);
-            }
     }
 }
 

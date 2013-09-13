@@ -73,16 +73,25 @@ void AdjacencyListGraph<T>::AddEdge(size_t start, size_t end)
 }
 
 template<typename T>
-void AdjacencyListGraph<T>::RemoveEdge(size_t /*start*/, size_t /*end*/)
+void AdjacencyListGraph<T>::RemoveEdge(size_t start, size_t end)
 {
-    // adj remove edge
+    if (m_graph.at(start) == 0)
+        return;
+
+    for (Edge* edge = m_graph.at(start); edge != 0 and edge->m_next != 0; edge = edge->m_next)
+        if (edge->m_next->m_to == end)
+        {
+            // TODO            
+        }
 }
 
 template<typename T>
-bool AdjacencyListGraph<T>::AreAdjacent(size_t /*nodeX*/, size_t /*nodeY*/) const
+bool AdjacencyListGraph<T>::AreAdjacent(size_t nodeX, size_t nodeY) const
 {
-    // TODO adj are adjacent
-    return true;
+    for (Edge* edge = m_graph.at(nodeX); edge != 0; edge = edge->m_next)
+        if (edge->m_to == nodeY)
+            return true;
+    return false;
 }
 
 template<typename T>

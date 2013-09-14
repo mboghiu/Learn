@@ -11,8 +11,8 @@ struct Offer
     Offer() = delete;
     Offer(double invest, double profit);
 
-    double m_invest;
-    double m_profit;
+    double m_cost;
+    double m_benefit;
 
     std::string ToString() const;
 };
@@ -22,6 +22,10 @@ struct Offer
 struct Solution
 {
     std::string ToString() const;
+    std::string ToString(int color) const;
+
+    void AddOffer(const Offer& offer);
+    void RemoveOffer(const Offer& offer);
 
     std::vector<Offer> m_portfolio;
     double m_invested = 0.0f;
@@ -43,7 +47,7 @@ class Bank
         const double m_capital;
         Solution m_optimalSolution;
 
-        void _extendPortfolio(size_t next, double investedSoFar, double potentialProfit, Solution& solution);
+        void _extendPortfolio(size_t next, double& investedSoFar, double potentialProfit, Solution& solution);
         void _test_solution(const Solution& solution);
 };
 

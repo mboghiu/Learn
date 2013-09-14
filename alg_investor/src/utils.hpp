@@ -11,14 +11,14 @@ namespace utils
 {
     options str2enum(const std::string& command);
 
-    template<typename Key, typename Value>
-    void read_input(std::istream& stream, std::string& command, Key& key, Value& value);
+    template<typename Offer>
+    void read_input(std::istream& stream, double& capital, int& n, std::vector<Offer>& values);
 }
 
 ///////////// definitions /////////////
 
-template<typename Key, typename Value>
-void utils::read_input(std::istream& stream, std::string& command, Key& key, Value& value)
+template<typename Offer>
+void utils::read_input(std::istream& stream, double& capital, int& n, std::vector<Offer>& values)
 {
     std::cout << ">> ";
 
@@ -26,7 +26,15 @@ void utils::read_input(std::istream& stream, std::string& command, Key& key, Val
     std::getline(stream, input);
     std::istringstream iss(input);
 
-    iss >> command;
-    iss >> key;
-    iss >> value;
+    iss >> capital;
+    iss >> n;
+
+    for (int x = 0; x < n; x++)
+    {
+        double invest;
+        double profit;
+        iss >> invest;
+        iss >> profit;
+        values.push_back(Offer(invest,profit));
+    }
 }

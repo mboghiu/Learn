@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <stack>
 
 /////////////// Offer ///////////////
 
@@ -18,6 +17,17 @@ struct Offer
     std::string ToString() const;
 };
 
+/////////////// Solution ///////////////
+
+struct Solution
+{
+    std::string ToString() const;
+
+    std::vector<Offer> m_portfolio;
+    double m_invested = 0.0f;
+    double m_total_profit = 0.0f;
+};
+
 /////////////// Bank ///////////////
 
 class Bank
@@ -26,14 +36,15 @@ class Bank
         Bank() = delete;
         Bank(double capital, const std::vector<Offer>& offers);
 
-        std::stack<Offer> BuildPortfolio();
+        const Solution& BuildPortfolio();
 
     private:
         std::vector<Offer> m_offers;
-        double m_capital;
+        const double m_capital;
+        Solution m_optimalSolution;
 
-        double m_invested;
-        double m_potentialProfit;
+        void _extendPortfolio(size_t next, double investedSoFar, double potentialProfit, Solution& solution);
+        void _test_solution(const Solution& solution);
 };
 
 #endif // _INVEST_

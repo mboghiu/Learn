@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include <string>
 #include <vector>
-#include <stack>
 
 #include "utils.hpp"
 
@@ -25,8 +23,6 @@ int main()
         if (capital == 0.0f)
             exit(0);
 
-        ///////////// Process ///////////
-
         std::cout << "Building portfolio for capital \033[1;37m"
                   << capital << "\033[0m with \033[1;37m" << n << "\033[0m offers: ";
 
@@ -35,20 +31,8 @@ int main()
 
         std::cout << std::endl;
 
-        std::stack<Offer> portfolio = Bank(capital, offers).BuildPortfolio();
+        ///////////// Process ///////////
 
-        ///////////// Print results ///////////
-
-        std::cout << "\033[32mPortfolio: \033[0m";
-
-        while (!portfolio.empty())
-        {
-            std::cout << portfolio.top().ToString() << " ";
-            portfolio.pop();
-        }
-
-        std::cout << std::endl;
+        std::cout << Bank(capital, offers).BuildPortfolio().ToString();
     }
-
-    return 0;
 }

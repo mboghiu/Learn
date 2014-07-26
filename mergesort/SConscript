@@ -1,0 +1,28 @@
+import os, fnmatch
+
+Import('env')
+
+def RecursiveGlob(path, patterns):
+    matches = []
+    path = Dir(path).abspath
+    if not type(patterns) is list:
+        patterns = [patterns]
+    for root, dirnames, filenames in os.walk(path):
+        for pattern in patterns:
+            for filename in fnmatch.filter(filenames, pattern):
+                filename = os.path.join(root, filename)
+                matches.append(os.path.relpath(filename, Dir('#.').abspath))
+    return matches
+
+treeSources = RecursiveGlob('#src/', '*.cpp')
+
+treeObjects = [
+    env.StaticObject(
+        source = file, 
+        CPPPATH = 'src/') 
+    for file in treeSources]
+
+treeBinary = env.Program(
+    target = 'tree', 
+    source = treeObjects
+)

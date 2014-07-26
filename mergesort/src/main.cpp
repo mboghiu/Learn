@@ -24,6 +24,11 @@ void AreEqual(const std::vector<T>& expected, const std::vector<T> actual)
     }
 }
 
+//////////////// mergesort
+
+template<typename T>
+std::vector<T> mergesort(const std::vector<T>& in);
+
 template<typename T>
 std::vector<T> merge(const std::vector<T>& lhs, const std::vector<T> rhs)
 {
@@ -42,11 +47,7 @@ std::vector<T> merge(const std::vector<T>& lhs, const std::vector<T> rhs)
     std::vector<T> lhs_sorted = mergesort(lhs);
     std::vector<T> rhs_sorted = mergesort(rhs);
 
-    for (size_t x = 0; x < std::min(n, m), x++)
-    {
-        v.push_back(
-    }
-
+    return std::move(v);
 }
 
 template<typename T>
@@ -56,8 +57,8 @@ std::vector<T> mergesort(const std::vector<T>& in)
         return in;
 
     return std::move(merge(
-        std::vector<T>(v.begin(), v.begin() + v.size() / 2),
-        std::vector<T>(v.begin() + v.size() / 2 + 1, v.end())
+        std::vector<T>(in.begin(), in.begin() + in.size() / 2),
+        std::vector<T>(in.begin() + in.size() / 2 + 1, in.end())
     ));
 }
 

@@ -92,5 +92,8 @@ int main()
     AreEqual<int>({1,1,3}, mergesort<int>({1,3,1}));
     AreEqual<int>({1,2,3}, mergesort<int>({3,2,1}));
     AreEqual<int>({1,2,3}, mergesort<int>({1,2,3}));
+    AreEqual<int>({1}, mergesort<int>({1}));
+    AreEqual<int>({9,9,9,9,9,9,9}, mergesort<int>({9,9,9,9,9,9,9}));
+    AreEqual<int>({1,1,3,5,9,11,23}, mergesort<int>({5,3,9,11,23,1,1}));
     AreEqual<int>({}, mergesort<int>({}));
 }

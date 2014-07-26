@@ -74,4 +74,5 @@ int main()
     AreEqual<int>({1}, quicksort<int>({1}));
     AreEqual<int>({9,9,9,9,9,9,9}, quicksort<int>({9,9,9,9,9,9,9}));
     AreEqual<int>({1,1,3,5,9,11,23}, quicksort<int>({5,3,9,11,23,1,1}));
+    AreEqual<int>({1,2,3,4,5,5,7,8,9}, quicksort<int>({3,7,8,5,2,1,9,5,4}));
 }

@@ -1,5 +1,7 @@
-COMPILER=g++
-COMPILER_FLAGS=-Wall -std=c++11
+SHELL := /bin/bash
 
-all:
-	$(COMPILER) $(COMPILER_FLAGS) -o tree quicksort.cpp
+scons:
+	@if [ "`whoami`" == "me" ]; then clear; fi
+	@scons
+
+.PHONY: scons

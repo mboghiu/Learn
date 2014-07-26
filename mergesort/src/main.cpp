@@ -24,7 +24,7 @@ void AreEqual(const std::vector<T>& expected, const std::vector<T> actual)
     }
 }
 
-//////////////// mergesort
+//////////////// mergesort n*log n
 
 template<typename T>
 std::vector<T> mergesort(const std::vector<T>& in);
@@ -47,18 +47,43 @@ std::vector<T> merge(const std::vector<T>& lhs, const std::vector<T> rhs)
     std::vector<T> lhs_sorted = mergesort(lhs);
     std::vector<T> rhs_sorted = mergesort(rhs);
 
+    int x = 0;
+    int y = 0;
+    while (x < n && y < m)
+    {
+        if (lhs_sorted[x] <= rhs_sorted[y])
+        {
+            v.push_back(lhs_sorted[x]);
+            x++;
+        }
+        else
+        {
+            v.push_back(rhs_sorted[y]);
+            y++;
+        }
+    }
+
+    if (x == n)
+        for (int i = y; i < m; i++)
+            v.push_back(rhs_sorted[i]);
+    else if (y == m)
+        for (int i = x; i < n; i++)
+            v.push_back(lhs_sorted[i]);
+
     return std::move(v);
 }
 
 template<typename T>
 std::vector<T> mergesort(const std::vector<T>& in)
 {
-    if (in.size() == 1)
+    if (in.size() <= 1)
         return in;
+
+    assert(in.size() > 1);
 
     return std::move(merge(
         std::vector<T>(in.begin(), in.begin() + in.size() / 2),
-        std::vector<T>(in.begin() + in.size() / 2 + 1, in.end())
+        std::vector<T>(in.begin() + in.size() / 2, in.end())
     ));
 }
 

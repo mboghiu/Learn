@@ -18,15 +18,14 @@ void AreEqual(const std::string& expected, const std::string& actual)
 
 std::string Reverse(const std::string& s)
 {
-    //const char* cs = s.c_str();
     std::string ss = s;
+    char* cs = s.c_str();
 
     size_t n = s.length();
     for (size_t x = 0; x < n / 2; x++)
-        std::swap(ss.at(x), ss.at(n - x - 1));
+        std::swap(*(cs + x), *(cs + n - x - 1));
 
-    //return std::move(std::string(cs));
-    return std::move(std::string(ss));
+    return std::move(std::string(cs));
 }
 
 int main()

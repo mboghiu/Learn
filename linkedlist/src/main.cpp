@@ -71,9 +71,13 @@ Node* Node::Delete(int data)
 
 bool Node::Has(int data) const
 {
-    if (data)
-        return false;
-    return true;
+    if (m_data == data)
+        return true;
+
+    for (Node* it = m_next; it != nullptr; it = it->m_next)
+        if (it->m_data == data)
+            return true;
+    return false;
 }
 
 int Node::GetData() const
@@ -97,13 +101,13 @@ int main()
     Node* list = new Node(1);
     Test<size_t>(1, list->Size());
 
-    list->Add(2)->Add(3);//->Add(4);
-    Test<size_t>(3, list->Size());
-//    Test<bool>(true, list->Has(1));
-//    Test<bool>(true, list->Has(2));
-//    Test<bool>(true, list->Has(3));
-//    Test<bool>(true, list->Has(4));
-//
+    list->Add(2)->Add(3)->Add(4);
+    Test<size_t>(4, list->Size());
+    Test<bool>(true, list->Has(1));
+    Test<bool>(true, list->Has(2));
+    Test<bool>(true, list->Has(3));
+    Test<bool>(true, list->Has(4));
+
 //    list->Delete(3);
 //    Test<size_t>(3, list->Size());
 //    Test<bool>(true, list->Has(1));

@@ -37,15 +37,10 @@ struct Node
 
 Node* Node::Add(int data)
 {
-    if (m_next == nullptr)
-        m_next = new Node(data);
-    else
-    {
-        Node* end = m_next;
-        while (end->m_next != nullptr)
-            end = end->m_next;
-        end->m_next = new Node(data);
-    }
+    Node* end = this;
+    while (end->m_next != nullptr)
+        end = end->m_next;
+    end->m_next = new Node(data);
 
     return this;
 }

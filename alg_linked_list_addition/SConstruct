@@ -1,0 +1,25 @@
+env = Environment(
+    CC = 'g++'
+)
+
+AddOption(
+    '--release-build', 
+    action = 'store_true', 
+    help = 'release build', 
+    default = False
+)
+
+if GetOption('release_build'):
+    variant_dir = 'build/release'
+    env.Append(CPPFLAGS = '-O2')
+else:
+    variant_dir = 'build/debug'
+    env.Append(CPPFLAGS = '-g')
+
+env.Append( CPPFLAGS = ' -std=c++11 -pedantic -Werror -Wall -Wextra -Wconversion -Wdisabled-optimization')
+
+SConscript(
+    dirs = '.', 
+    variant_dir = variant_dir,
+    duplicate = False,
+    exports = 'env')

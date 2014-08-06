@@ -6,7 +6,29 @@
 
 int FindLoop(Node* list)
 {
-    
+    Node* fastRunner = list;
+    Node* slowRunner = list;
+
+    while (fastRunner->m_next != nullptr &&
+           fastRunner->m_next->m_next != nullptr &&
+           fastRunner != slowRunner)
+    {
+        fastRunner = fastRunner->m_next->m_next;
+        slowRunner = slowRunner->m_next;
+    }
+
+    if (fastRunner != slowRunner)
+        return -1;
+
+    slowRunner = list;
+
+    while (slowRunner != fastRunner)
+    {
+        slowRunner = slowRunner->m_next;
+        fastRunner = fastRunner->m_next;
+    }
+
+    return slowRunner->m_data;
 }
 
 int FindLoop_Naive(Node* list)
@@ -37,6 +59,7 @@ int main()
     b->m_next = loop;
     Y->Add(loop)->Add(4)->Add(b);
     Test(true, FindLoop(Y) == loop->m_data);
+    std::cout<< "r: " << FindLoop(Y) << std::endl;
 
     return 0;
 }

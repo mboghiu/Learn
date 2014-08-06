@@ -6,6 +6,26 @@
 
 int nth(Node* X, size_t index)
 {
+    Node* p1 = X;
+    Node* p2 = X;
+
+    for (size_t x = 0; x < index; x++)
+        if (p2->m_next == nullptr)
+            return p1->m_data;
+        else
+            p2 = p2->m_next;
+
+    while (p2 != nullptr)
+    {
+        p1 = p1->m_next;
+        p2 = p2->m_next;
+    }
+
+    return p1->m_data;
+}
+
+int nth_naive(Node* X, size_t index)
+{
     if (X->Size() < index)
         return -1;
 
@@ -33,7 +53,5 @@ int main()
 
     Node* Y = (new Node(3));
     Test(true, nth(Y, 1) == 3);
-    Test(true, nth(Y, 0) == -1);
-    Test(true, nth(Y, 4) == -1);
     return 0;
 }

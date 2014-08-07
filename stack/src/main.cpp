@@ -1,16 +1,22 @@
+#include <string>
+
 #include "test.hpp"
 #include "stack.hpp"
 
 int main()
 {
     Stack<int>* s = new Stack<int>();
-    s->Print();
+    Test<std::string>("-1 | ", s->ToString());
 
-    s = s->Push(4);
-    s->Print();
+    s->Push(4);
+    Test<std::string>("4 | ", s->ToString());
 
-    s = s->Push(5);
-    s->Print();
+    s->Push(5);
+    Test<std::string>("5 | 4 | ", s->ToString());
+
+    s->Push(7);
+    s->Push(6);
+    Test<std::string>("6 | 7 | 5 | 4 | ", s->ToString());
 
 
     return 0;

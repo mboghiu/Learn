@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
+#include <string>
 
 template<typename T>
 class Stack
@@ -8,40 +10,49 @@ class Stack
     public:
         Stack() = default;
         Stack(const T& value, Stack* const next) :
+            m_data(value),
             m_have(true),
             m_next(next),
-            m_data(value)
+            m_top(this)
         { }
 
-        Stack* Push(const T& value);
+        void Push(const T& value);
 
         void Print();
+        std::string ToString();
 
     private:
+        T m_data;
         bool m_have = false;
         Stack* const m_next = nullptr;
-        T m_data;
+        Stack* m_top = this;
 };
 
 template<typename T>
-Stack<T>* Stack<T>::Push(const T& value)
+void Stack<T>::Push(const T& value)
 {
-    if (!m_have)
+    if (!m_top->m_have)
     {
-        m_data = value;
-        m_have = true;
-        return this;
+        m_top->m_data = value;
+        m_top->m_have = true;
     }
     else
     {
-        auto s = new Stack<T>(value, this);
-        return s; 
+        m_top = new Stack<T>(value, m_top);
     }
 }
 
 template<typename T>
 void Stack<T>::Print()
 {
-    for (Stack* i = this; i != nullptr; i = i->m_next)
-        std::cout << (i->m_have ? i->m_data : -1) << std::endl;
+    std::cout << ToString() << std::endl;
+}
+
+template<typename T>
+std::string Stack<T>::ToString()
+{
+    std::stringstream ss;
+    for (Stack* i = m_top; i != nullptr; i = i->m_next)
+        ss << (i->m_have ? i->m_data : -1) << " | ";
+    return std::move(ss.str());
 }

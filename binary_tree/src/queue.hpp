@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-#include "node.hpp"
+#include "qnode.hpp"
 
 template<typename T>
 class Queue
@@ -17,8 +17,8 @@ class Queue
         std::string ToString();
 
     private:
-        Node<T>* m_front = nullptr;
-        Node<T>* m_end = nullptr;
+        qnode<T>* m_front = nullptr;
+        qnode<T>* m_end = nullptr;
 };
 
 template<typename T>
@@ -26,12 +26,12 @@ void Queue<T>::Push(const T& value)
 {
     if (m_front == nullptr)
     {
-        m_end = new Node<T>(value);
+        m_end = new qnode<T>(value);
         m_front = m_end;
     }
     else
     {
-        m_end->m_next = new Node<T>(value);
+        m_end->m_next = new qnode<T>(value);
         m_end = m_end->m_next;
     }
 }
@@ -42,7 +42,7 @@ void Queue<T>::Pop()
     if (m_front == nullptr)
         return;
 
-    Node<T>* del = m_front;
+    qnode<T>* del = m_front;
     m_front = m_front->m_next;
     delete del;
 }
@@ -57,7 +57,7 @@ template<typename T>
 std::string Queue<T>::ToString()
 {
     std::stringstream ss;
-    for (Node<T>* i = m_front; i != nullptr; i = i->m_next)
+    for (qnode<T>* i = m_front; i != nullptr; i = i->m_next)
         ss << i->m_data << " | ";
     return std::move(ss.str());
 }

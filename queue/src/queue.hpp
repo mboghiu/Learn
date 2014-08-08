@@ -4,30 +4,7 @@
 #include <sstream>
 #include <string>
 
-template<typename T>
-struct Node
-{
-    Node() :
-        m_have(false),
-        m_next(nullptr)
-    { }
-
-    Node(const T& data) :
-        m_data(data),
-        m_have(true),
-        m_next(nullptr)
-    { }
-
-    Node(const T& data, Node* next) :
-        Node(data)
-    {
-        m_next = next;
-    }
-
-    T m_data;
-    bool m_have;
-    Node* m_next;
-};
+#include "node.hpp"
 
 template<typename T>
 class Queue
@@ -47,11 +24,27 @@ class Queue
 template<typename T>
 void Queue<T>::Push(const T& value)
 {
+    if (m_front == nullptr)
+    {
+        m_end = new Node<T>(value);
+        m_front = m_end;
+    }
+    else
+    {
+        m_end->m_next = new Node<T>(value);
+        m_end = m_end->m_next;
+    }
 }
 
 template<typename T>
 void Queue<T>::Pop()
 {
+    if (m_front == nullptr)
+        return;
+
+    Node<T>* del = m_front;
+    m_front = m_front->m_next;
+    delete del;
 }
 
 template<typename T>

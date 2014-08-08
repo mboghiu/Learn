@@ -1,7 +1,7 @@
 #include <string>
 
 #include "test.hpp"
-#include "stack.hpp"
+#include "queue.hpp"
 
 int main()
 {
@@ -16,13 +16,13 @@ int main()
 
     s->Push(7);
     s->Push(6);
-    Test<std::string>("4 | 5 | 6 | 7 | ", s->ToString());
+    Test<std::string>("4 | 5 | 7 | 6 | ", s->ToString());
 
     s->Pop();
-    Test<std::string>("5 | 6 | 7 | ", s->ToString());
+    Test<std::string>("5 | 7 | 6 | ", s->ToString());
     s->Pop();
     s->Pop();
-    Test<std::string>("7 | ", s->ToString());
+    Test<std::string>("6 | ", s->ToString());
     s->Pop();
     Test<std::string>("", s->ToString());
 

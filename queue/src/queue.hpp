@@ -40,27 +40,18 @@ class Queue
         std::string ToString();
 
     private:
-        Node<T>* m_top = nullptr;
+        Node<T>* m_front = nullptr;
+        Node<T>* m_end = nullptr;
 };
 
 template<typename T>
 void Queue<T>::Push(const T& value)
 {
-    if (m_top == nullptr)
-        m_top = new Node<T>(value);
-    else
-        m_top = new Node<T>(value, m_top);
 }
 
 template<typename T>
 void Queue<T>::Pop()
 {
-    if (m_top == nullptr)
-        return;
-
-    Node<T>* del = m_top;
-    m_top = m_top->m_next;
-    delete del;
 }
 
 template<typename T>
@@ -73,7 +64,7 @@ template<typename T>
 std::string Queue<T>::ToString()
 {
     std::stringstream ss;
-    for (Node<T>* i = m_top; i != nullptr; i = i->m_next)
+    for (Node<T>* i = m_front; i != nullptr; i = i->m_next)
         ss << i->m_data << " | ";
     return std::move(ss.str());
 }

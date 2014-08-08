@@ -58,6 +58,6 @@ std::string Queue<T>::ToString()
 {
     std::stringstream ss;
     for (qnode<T>* i = m_front; i != nullptr; i = i->m_next)
-        ss << i->m_data << " | ";
+        ss << i->m_data << "|";
     return std::move(ss.str());
 }

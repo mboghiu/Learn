@@ -11,7 +11,7 @@
 *.la
 *.a
 
-*tree
+build/*tree
 build
 .scons*
 *.sw?

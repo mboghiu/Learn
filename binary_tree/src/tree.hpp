@@ -23,7 +23,7 @@ class bt
     private:
         Node<T>* _tree = nullptr;
 
-        void _RecursiveInsert(Node<T>* where, const T& value, bool& done);
+        void _RecursiveInsert(Node<T>*& where, const T& value, bool& done);
 };
 
 template<typename T>
@@ -34,7 +34,7 @@ void bt<T>::Insert(const T& value)
 }
 
 template<typename T>
-void bt<T>::_RecursiveInsert(Node<T>* node, const T& value, bool& done)
+void bt<T>::_RecursiveInsert(Node<T>*& node, const T& value, bool& done)
 {
     if (done)
         return;

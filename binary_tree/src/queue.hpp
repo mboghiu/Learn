@@ -11,8 +11,8 @@ class Queue
 {
     public:
         void Push(const T& value);
-        Node* Pop();
-        Node* Peek() const;
+        qnode<T>* Pop();
+        qnode<T>* Peek() const;
 
         void Print();
         std::string ToString();
@@ -38,12 +38,12 @@ void Queue<T>::Push(const T& value)
 }
 
 template<typename T>
-Node* Queue<T>::Pop()
+qnode<T>* Queue<T>::Pop()
 {
     if (m_front == nullptr)
         return nullptr;
 
-    qnode<T>* front = m_front;
+    auto front = m_front;
     m_front = m_front->m_next;
     return front;
 }
@@ -64,7 +64,7 @@ std::string Queue<T>::ToString()
 }
 
 template<typename T>
-Node* Queue<T>::Peek() const;
+qnode<T>* Queue<T>::Peek() const
 {
     return m_front;
 }

@@ -1,15 +1,14 @@
 #pragma once
 
-template<typename T>
 struct Node
 {
-    Node(const T& data) :
+    Node(int data) :
         data(data),
         left(nullptr),
         right(nullptr)
     { }
 
-    T data;
+    int data;
     Node* left;
     Node* right;
 };

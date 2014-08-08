@@ -4,7 +4,7 @@
 #include <sstream>
 
 #include "node.hpp"
-
+#include "queue.hpp"
 
 template<typename T>
 class bt
@@ -21,9 +21,9 @@ class bt
         std::string BFTraverse() const;
 
     private:
-        Node<T>* _tree = nullptr;
+        Node* _tree = nullptr;
 
-        void _RecursiveInsert(Node<T>*& where, const T& value, bool& done);
+        void _RecursiveInsert(Node*& where, const T& value, bool& done);
 };
 
 template<typename T>
@@ -34,14 +34,14 @@ void bt<T>::Insert(const T& value)
 }
 
 template<typename T>
-void bt<T>::_RecursiveInsert(Node<T>*& node, const T& value, bool& done)
+void bt<T>::_RecursiveInsert(Node*& node, const T& value, bool& done)
 {
     if (done)
         return;
 
     if (node == nullptr)
     {
-        node = new Node<T>(value);
+        node = new Node(value);
         done = true;
         return;
     }
@@ -50,12 +50,28 @@ void bt<T>::_RecursiveInsert(Node<T>*& node, const T& value, bool& done)
     _RecursiveInsert(node->right, value, done);
 }
 
+template<typename T>
+std::string bt<T>::BFTraverse() const
+{
+    if (_tree == nullptr)
+        return "";
 
+    std::stringstream ss;
 
+    Queue<Node> queue;
+    queue.Push(*_tree);
 
+    while (queue.Peek() != nullptr)
+    {
+        auto front = queue.Pop()->m_data;
 
+        ss << front.data << "|";
 
+        if (front.left != nullptr)
+            queue.Push(*front.left);
+        if (front.right != nullptr)
+            queue.Push(*front.right);
+    }
 
-
-
-
+    return std::move(ss.str());
+}

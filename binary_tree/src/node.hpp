@@ -5,7 +5,8 @@ struct Node
 {
     Node(const T& data) :
         data(data),
-        next(nullptr)
+        left(nullptr),
+        right(nullptr)
     { }
 
     T data;

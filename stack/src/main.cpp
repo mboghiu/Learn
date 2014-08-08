@@ -6,7 +6,7 @@
 int main()
 {
     Stack<int>* s = new Stack<int>();
-    Test<std::string>("-1 | ", s->ToString());
+    Test<std::string>("", s->ToString());
 
     s->Push(4);
     Test<std::string>("4 | ", s->ToString());
@@ -17,6 +17,14 @@ int main()
     s->Push(7);
     s->Push(6);
     Test<std::string>("6 | 7 | 5 | 4 | ", s->ToString());
+
+    s->Pop();
+    Test<std::string>("7 | 5 | 4 | ", s->ToString());
+    s->Pop();
+    s->Pop();
+    Test<std::string>("4 | ", s->ToString());
+    s->Pop();
+    Test<std::string>("", s->ToString());
 
 
     return 0;

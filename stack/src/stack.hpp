@@ -5,41 +5,62 @@
 #include <string>
 
 template<typename T>
+struct Node
+{
+    Node() :
+        m_have(false),
+        m_next(nullptr)
+    { }
+
+    Node(const T& data) :
+        m_data(data),
+        m_have(true),
+        m_next(nullptr)
+    { }
+
+    Node(const T& data, Node* next) :
+        Node(data)
+    {
+        m_next = next;
+    }
+
+    T m_data;
+    bool m_have;
+    Node* m_next;
+};
+
+template<typename T>
 class Stack
 {
     public:
-        Stack() = default;
-        Stack(const T& value, Stack* const next) :
-            m_data(value),
-            m_have(true),
-            m_next(next),
-            m_top(this)
-        { }
-
         void Push(const T& value);
+        void Pop();
 
         void Print();
         std::string ToString();
 
     private:
-        T m_data;
-        bool m_have = false;
-        Stack* const m_next = nullptr;
-        Stack* m_top = this;
+        Node<T>* m_top = nullptr;
 };
 
 template<typename T>
 void Stack<T>::Push(const T& value)
 {
-    if (!m_top->m_have)
-    {
-        m_top->m_data = value;
-        m_top->m_have = true;
-    }
+    if (m_top == nullptr)
+        m_top = new Node<T>(value);
     else
-    {
-        m_top = new Stack<T>(value, m_top);
-    }
+        m_top = new Node<T>(value, m_top);
+}
+
+template<typename T>
+void Stack<T>::Pop()
+{
+    if (m_top == nullptr)
+        return;
+
+    Node<T>* del = m_top;
+    m_top = m_top->m_next;
+    delete del;
 }
 
 template<typename T>
@@ -52,7 +73,7 @@ template<typename T>
 std::string Stack<T>::ToString()
 {
     std::stringstream ss;
-    for (Stack* i = m_top; i != nullptr; i = i->m_next)
-        ss << (i->m_have ? i->m_data : -1) << " | ";
+    for (Node<T>* i = m_top; i != nullptr; i = i->m_next)
+        ss << i->m_data << " | ";
     return std::move(ss.str());
 }

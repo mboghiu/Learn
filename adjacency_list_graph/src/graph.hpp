@@ -12,6 +12,8 @@ class graph
         void add(const node& n);
         void add(const edge& e);
 
+        void peek() const;
+
     private:
         std::map<node, std::set<node>> _graph;
 };

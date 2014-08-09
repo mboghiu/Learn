@@ -12,5 +12,5 @@ public:
     std::string inorder() const;
 
 private:
-    node* _tree;
+    node* _tree = nullptr;
 };

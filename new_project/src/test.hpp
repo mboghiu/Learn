@@ -3,7 +3,7 @@
 #include <iostream>
 
 template<typename T>
-void Test(T expected, T actual)
+void test(T expected, T actual)
 {
     if (expected == actual)
         std::cout << "\033[32mPASS\033[0m" << std::endl;

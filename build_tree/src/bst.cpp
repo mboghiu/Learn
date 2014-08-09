@@ -21,20 +21,23 @@ void bst::insert(int v)
     _insert(v, _tree);
 }
 
+static node* _inserta(const std::vector<int>& a)
+{
+    if (a.size() == 1)
+        return new node(a[0]);
+
+    auto n = new node(a[a.size()/2]);
+    n->left = _inserta(std::vector<int>(a.begin(), a.begin() + a.size()/2));
+    n->right = _inserta(std::vector<int>(a.begin() + a.size()/2 + 1, a.end()));
+
+    return n;
+}
+
 void bst::insert(const std::vector<int>& sorted)
 {
-    auto n = sorted.size();
-
-    if (n == 1)
-    {
-        insert(sorted[0]);
+    if (_tree != nullptr)
         return;
-    }
-
-    insert(sorted[n/2]);
-
-    insert(std::vector<int>(sorted.begin(), sorted.begin() + n/2));
-    insert(std::vector<int>(sorted.begin() + n/2 + 1, sorted.end()));
+    _tree = _inserta(sorted);
 }
 
 ///////////////// balanced

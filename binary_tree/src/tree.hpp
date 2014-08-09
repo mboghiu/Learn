@@ -20,13 +20,11 @@ class bt
 
         std::string BFTraverse() const;
 
-        Node* _tree = nullptr;
     private:
+        Node* _tree = nullptr;
         bool toggleInsert = false;
 
         void _RecursiveInsert(Node*& where, const T& value);
-
-        void _preorder(std::stringstream& ss, Node* node) const;
 };
 
 template<typename T>
@@ -82,18 +80,9 @@ std::string bt<T>::BFTraverse() const
     return std::move(ss.str());
 }
 
-template<typename T>
-std::string bt<T>::DFTraverse_preorder() const
-{
-    std::stringstream ss;
+///////// preorder
 
-    _preorder(ss, _tree);
-    
-    return std::move(ss.str());
-}
-
-template<typename T>
-void bt<T>::_preorder(std::stringstream& ss, Node* node) const
+static void _preorder(std::stringstream& ss, Node* node)
 {
     if (node == nullptr)
         return;
@@ -101,4 +90,52 @@ void bt<T>::_preorder(std::stringstream& ss, Node* node) const
     ss << node->data << "|";
     _preorder(ss, node->left);
     _preorder(ss, node->right);
+}
+
+template<typename T>
+std::string bt<T>::DFTraverse_preorder() const
+{
+    std::stringstream ss;
+    _preorder(ss, _tree);
+    return std::move(ss.str());
+}
+
+///////// inorder
+
+static void _inorder(std::stringstream& ss, Node* node)
+{
+    if (node == nullptr)
+        return;
+
+    _inorder(ss, node->left);
+    ss << node->data << "|";
+    _inorder(ss, node->right);
+}
+
+template<typename T>
+std::string bt<T>::DFTraverse_inorder() const
+{
+    std::stringstream ss;
+    _inorder(ss, _tree);
+    return std::move(ss.str());
+}
+
+///////// postorder
+
+static void _postorder(std::stringstream& ss, Node* node)
+{
+    if (node == nullptr)
+        return;
+
+    _postorder(ss, node->left);
+    _postorder(ss, node->right);
+    ss << node->data << "|";
+}
+
+template<typename T>
+std::string bt<T>::DFTraverse_postorder() const
+{
+    std::stringstream ss;
+    _postorder(ss, _tree);
+    return std::move(ss.str());
 }

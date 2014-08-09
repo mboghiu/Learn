@@ -18,4 +18,6 @@ struct edge
 };
 
 bool operator==(const node& lhs, const node& rhs);
+bool operator<(const node& lhs, const node& rhs);
+
 bool operator==(const edge& lhs, const edge& rhs);

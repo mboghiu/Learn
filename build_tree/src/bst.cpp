@@ -23,6 +23,18 @@ void bst::insert(int v)
 
 void bst::insert(const std::vector<int>& sorted)
 {
+    auto n = sorted.size();
+
+    if (n == 1)
+    {
+        insert(sorted[0]);
+        return;
+    }
+
+    insert(sorted[n/2]);
+
+    insert(std::vector<int>(sorted.begin(), sorted.begin() + n/2));
+    insert(std::vector<int>(sorted.begin() + n/2 + 1, sorted.end()));
 }
 
 ///////////////// balanced

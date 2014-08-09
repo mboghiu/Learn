@@ -8,6 +8,8 @@ class bst
 {
 public:
     void insert(int v);
+
+    bool isBalanced() const;
     
     std::string inorder() const;
 

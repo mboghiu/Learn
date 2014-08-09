@@ -1,4 +1,5 @@
 #include "test.hpp"
+#include "bst.hpp"
 
 int main()
 {

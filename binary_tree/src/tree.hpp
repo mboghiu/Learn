@@ -20,34 +20,40 @@ class bt
 
         std::string BFTraverse() const;
 
-    private:
         Node* _tree = nullptr;
+    private:
+        bool toggleInsert = false;
 
-        void _RecursiveInsert(Node*& where, const T& value, bool& done);
+        void _RecursiveInsert(Node*& where, const T& value);
+
+        void _preorder(std::stringstream& ss, Node* node) const;
 };
 
 template<typename T>
 void bt<T>::Insert(const T& value)
 {
-    bool done = false;
-    _RecursiveInsert(_tree, value, done);
+    _RecursiveInsert(_tree, value);
 }
 
 template<typename T>
-void bt<T>::_RecursiveInsert(Node*& node, const T& value, bool& done)
+void bt<T>::_RecursiveInsert(Node*& node, const T& value)
 {
-    if (done)
-        return;
-
     if (node == nullptr)
     {
         node = new Node(value);
-        done = true;
+        toggleInsert = !toggleInsert;
         return;
     }
 
-    _RecursiveInsert(node->left, value, done);
-    _RecursiveInsert(node->right, value, done);
+    if (node-> left == nullptr)
+        _RecursiveInsert(node->left, value);
+    else if (node->right == nullptr)
+        _RecursiveInsert(node->right, value);
+    else
+        // no particular kind of tree
+        toggleInsert?
+            _RecursiveInsert(node->left, value) :
+            _RecursiveInsert(node->right, value);
 }
 
 template<typename T>
@@ -74,4 +80,25 @@ std::string bt<T>::BFTraverse() const
     }
 
     return std::move(ss.str());
+}
+
+template<typename T>
+std::string bt<T>::DFTraverse_preorder() const
+{
+    std::stringstream ss;
+
+    _preorder(ss, _tree);
+    
+    return std::move(ss.str());
+}
+
+template<typename T>
+void bt<T>::_preorder(std::stringstream& ss, Node* node) const
+{
+    if (node == nullptr)
+        return;
+
+    ss << node->data << "|";
+    _preorder(ss, node->left);
+    _preorder(ss, node->right);
 }

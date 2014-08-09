@@ -1,6 +1,8 @@
 #include "test.hpp"
 #include "graph.hpp"
 
+#include <string>
+
 int main()
 {
     graph g;
@@ -21,7 +23,10 @@ int main()
     g.add(edge(5, 7));
     g.add(edge(7, 5));
 
-    g.peek();
+    Test<std::string>("2|3|4|7|6|5|", g.bf(2));
+    Test(true, g.route(2,5));
+    Test(true, g.route(1,5));
+    Test(false, g.route(4,1));
 
     return 0;
 }

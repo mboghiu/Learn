@@ -2,6 +2,11 @@
 
 #include <algorithm>
 
+bool operator==(const node& lhs, const node& rhs)
+{
+    return (lhs.v == rhs.v) && (lhs.left == rhs.left) && (lhs.right == rhs.right);
+}
+
 node::node(int v, node* p) :
     v(v),
     left(nullptr),

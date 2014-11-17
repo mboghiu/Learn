@@ -11,3 +11,5 @@ struct node
 
     int balance();
 };
+
+bool operator==(const node& lhs, const node& rhs);

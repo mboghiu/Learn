@@ -10,6 +10,8 @@ int main()
     t.insert(5);
     t.insert(3);
 
+    t.print();
+
 
     return 0;
 }
